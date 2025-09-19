@@ -1,8 +1,5 @@
 package ua.opnu;
 
-import java.util.ArrayList;
-import java.util.List;
-
 public class Student {
 
     private final String name;
@@ -10,7 +7,8 @@ public class Student {
 
     private final int year;
 
-    private final List<String> courses = new ArrayList<>();
+    private String[] courses = new String[20];
+    private int courseCount;
 
     public Student(String name, int year) {
         if (name == null || name.isBlank()) {
@@ -30,15 +28,20 @@ public class Student {
             throw new IllegalArgumentException("Course name cannot be null or empty");
         }
 
-        courses.add(course);
+        if (courseCount >= courses.length) {
+            throw new IllegalStateException("No more space for courses");
+        }
+
+        courses[courseCount++] = course;
     }
 
     public void dropAll() {
-        courses.clear();
+        courses = new String[20];
+        courseCount = 0;
     }
 
     public int getCourseCount() {
-        return courses.size();
+        return courseCount;
     }
 
     public String getName() {
