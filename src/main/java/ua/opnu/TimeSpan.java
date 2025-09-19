@@ -1,46 +1,57 @@
 package ua.opnu;
 
-
 public class TimeSpan {
-
-    // TODO: add class fields
+    private int timeIntervalMinutesTotal;
 
     TimeSpan(int hours, int minutes) {
-        // TODO: write constructor body
+        add(hours, minutes);
     }
 
     int getHours() {
-        return 0;
+        return timeIntervalMinutesTotal / 60;
     }
 
     int getMinutes() {
-        // TODO: write method body
-        return 0;
+        return timeIntervalMinutesTotal % 60;
     }
 
     void add(int hours, int minutes) {
-        // TODO: write method body
+        if (minutes < 0 || minutes > 59) {
+            throw new IllegalArgumentException("minutes must be between 0 and 59");
+        }
+
+        if (hours < 0) {
+            throw new IllegalArgumentException("an hour must be more than 0");
+        }
+
+        timeIntervalMinutesTotal += hours * 60 + minutes;
     }
 
     void addTimeSpan(TimeSpan timespan) {
-        // TODO: write method body
+        add(timespan.getHours(), timespan.getMinutes());
     }
 
     double getTotalHours() {
-        // TODO: write method body
-        return 0;
+        return timeIntervalMinutesTotal / 60.0;
     }
 
     int getTotalMinutes() {
-        // TODO: write method body
-        return 0;
+        return timeIntervalMinutesTotal;
     }
 
     void subtract(TimeSpan span) {
-        // TODO: write method body
+        if (span.getTotalMinutes() > getTotalMinutes()) {
+            throw new IllegalArgumentException("You can't subtract span more than current time");
+        }
+
+        timeIntervalMinutesTotal -= span.getTotalMinutes();
     }
 
     void scale(int factor) {
-        // TODO: write method body
+        if (factor <= 0) {
+            throw new IllegalArgumentException("You can't factor to negative number");
+        }
+
+        timeIntervalMinutesTotal *= factor;
     }
 }
